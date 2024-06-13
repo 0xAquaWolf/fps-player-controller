@@ -160,7 +160,7 @@ libraries = {
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.62055, 0)
 shape = SubResource("SphereShape3D_t6jed")
-debug_shape_custom_color = Color(0.689209, 0.884226, 0.936361, 1)
+debug_shape_custom_color = Color(0.007697, 0.836562, 0.669426, 1)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

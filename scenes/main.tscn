@@ -407,7 +407,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000567436, 4.16247, -0.0082
 pixel_size = 0.02
 billboard = 1
 modulate = Color(0.83651, 0.717845, 0.473543, 1)
-text = "Press ( c ) to Crouch"
+text = "Press ( c ) or ( R ) Stick  to Crouch"
 
 [node name="NoCrouchTargetTestLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5971, 3.30613, 0)
