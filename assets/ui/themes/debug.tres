@@ -1,0 +1,19 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cs4m8wldqxle5"]
+
+[ext_resource type="StyleBox" uid="uid://uen1yxxtncqx" path="res://assets/ui/ui_box.tres" id="1_iteq8"]
+
+[sub_resource type="SystemFont" id="SystemFont_eiiyc"]
+font_names = PackedStringArray("Helvetica")
+
+[resource]
+default_font = SubResource("SystemFont_eiiyc")
+Label/colors/font_color = Color(0.965122, 0.960627, 0.991808, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/font_sizes/font_size = 30
+Label/fonts/font = SubResource("SystemFont_eiiyc")
+MarginContainer/constants/margin_bottom = 20
+MarginContainer/constants/margin_left = 20
+MarginContainer/constants/margin_right = 20
+MarginContainer/constants/margin_top = 20
+PanelContainer/styles/panel = ExtResource("1_iteq8")
+VBoxContainer/constants/separation = 20

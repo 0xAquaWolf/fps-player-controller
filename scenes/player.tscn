@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctu1b7xls6f0t"]
+[gd_scene load_steps=12 format=3 uid="uid://ctu1b7xls6f0t"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_an3vc"]
 [ext_resource type="Material" uid="uid://b4gwd5h7ixvct" path="res://assets/materials/player.tres" id="1_j6fsg"]
 [ext_resource type="Script" path="res://scripts/Reticle.gd" id="3_i6q4v"]
+[ext_resource type="Theme" uid="uid://cs4m8wldqxle5" path="res://assets/ui/themes/debug.tres" id="4_yvtti"]
+[ext_resource type="Script" path="res://scenes/debug.gd" id="5_5q6jt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cv00u"]
 height = 3.0
@@ -200,5 +202,22 @@ width = 4.0
 [node name="Left" type="Line2D" parent="UI/Reticle"]
 points = PackedVector2Array(-10, 2.08165e-12, -25, 2.08165e-12)
 width = 4.0
+
+[node name="Debug Panel" type="PanelContainer" parent="UI"]
+custom_minimum_size = Vector2(200, 2.08165e-12)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 291.0
+offset_bottom = 81.0
+theme = ExtResource("4_yvtti")
+script = ExtResource("5_5q6jt")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Debug Panel"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Debug Panel/MarginContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 2.95
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
