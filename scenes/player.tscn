@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://ctu1b7xls6f0t"]
+[gd_scene load_steps=10 format=3 uid="uid://ctu1b7xls6f0t"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_an3vc"]
 [ext_resource type="Material" uid="uid://b4gwd5h7ixvct" path="res://assets/materials/player.tres" id="1_j6fsg"]
+[ext_resource type="Script" path="res://scripts/Reticle.gd" id="3_i6q4v"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cv00u"]
 height = 3.0
@@ -9,57 +10,6 @@ height = 3.0
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qt4vv"]
 material = ExtResource("1_j6fsg")
 height = 3.0
-
-[sub_resource type="Animation" id="Animation_pnqo2"]
-resource_name = "crouch"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape3D:shape:height")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [3.0, 2.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape3D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 1, 0), Vector3(0, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CamaraController:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(2.08165e-12, 2.5048, 2.08165e-12), Vector3(2.08165e-12, 1.95979, 2.08165e-12)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CollisionShape3D/MeshInstance3D:mesh:height")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [3.0, 2.0]
-}
 
 [sub_resource type="Animation" id="Animation_p88wh"]
 length = 0.001
@@ -112,6 +62,57 @@ tracks/3/keys = {
 "values": [3.0]
 }
 
+[sub_resource type="Animation" id="Animation_pnqo2"]
+resource_name = "crouch"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:shape:height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [3.0, 2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1, 0), Vector3(0, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CamaraController:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(2.08165e-12, 2.5048, 2.08165e-12), Vector3(2.08165e-12, 1.95979, 2.08165e-12)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape3D/MeshInstance3D:mesh:height")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [3.0, 2.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y7cee"]
 _data = {
 "RESET": SubResource("Animation_p88wh"),
@@ -124,6 +125,7 @@ _data = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_an3vc")
 CROUCH_SHAPECAST = NodePath("ShapeCast3D")
+TOGGLE_CROUCH = true
 ANIMATION_PLAYER = NodePath("AnimationPlayer")
 CAMARA_CONTROLLER = NodePath("CamaraController/Camera3D")
 MOUSE_SENSITIVITY = 0.3
@@ -136,7 +138,6 @@ shape = SubResource("CapsuleShape3D_cv00u")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0, 2.08165e-12)
-visible = false
 mesh = SubResource("CapsuleMesh_qt4vv")
 skeleton = NodePath("../..")
 
@@ -158,3 +159,46 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.62055, 0)
 shape = SubResource("SphereShape3D_t6jed")
 debug_shape_custom_color = Color(0.689209, 0.884226, 0.936361, 1)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Reticle" type="CenterContainer" parent="UI" node_paths=PackedStringArray("RETICLE_LINES", "PLAYER_CONTROLLER")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_i6q4v")
+RETICLE_LINES = [NodePath("Top"), NodePath("Right"), NodePath("Bottom"), NodePath("Left")]
+PLAYER_CONTROLLER = NodePath("../..")
+RETICLE_SPEED = 0.2
+RETICLE_DISTANCE = 5.0
+
+[node name="Top" type="Line2D" parent="UI/Reticle"]
+points = PackedVector2Array(2.08165e-12, -10, 2.08165e-12, -25)
+width = 4.0
+joint_mode = 2
+
+[node name="Right" type="Line2D" parent="UI/Reticle"]
+points = PackedVector2Array(10, 2.08165e-12, 25, 2.08165e-12)
+width = 4.0
+
+[node name="Bottom" type="Line2D" parent="UI/Reticle"]
+points = PackedVector2Array(2.08165e-12, 10, 2.08165e-12, 25)
+width = 4.0
+
+[node name="Left" type="Line2D" parent="UI/Reticle"]
+points = PackedVector2Array(-10, 2.08165e-12, -25, 2.08165e-12)
+width = 4.0
+
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]

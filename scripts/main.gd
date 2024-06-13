@@ -10,5 +10,5 @@ func _process(_delta):
 	pass
 
 func _input(event):
-	if Input.is_action_pressed("Escape"):
+	if event.is_action_pressed("Escape"):
 		get_tree().quit()
