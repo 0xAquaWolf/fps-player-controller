@@ -1,3 +1,5 @@
+class_name Player
+
 extends CharacterBody3D
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -6,6 +8,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export_group("Player")
 @export var CROUCH_SHAPECAST : Node3D
 @export var TOGGLE_CROUCH : bool = false
+@export var ACCELERATION : float = 0.1
+@export var DECELERATION : float = 0.25
 @export var ANIMATION_PLAYER : AnimationPlayer
 @export var TILT_LOWER_LIMIT := deg_to_rad(-90.0)
 @export var TILT_UPPER_LIMIT := deg_to_rad(90.0)
@@ -14,6 +18,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var CONTROLLER_SENSITIVITY : float = 3
 @export var SPEED_DEFAULT : float = 5.0
 @export var SPEED_CROUCH : float = 2.0
+@export var SPRINTING_SPEED : float = 7.0
 @export var SPEED = 3.0
 @export var JUMP_VELOCITY = 7.0
 @export var TOGGLE_MOUSE_MODE : bool = false
@@ -31,6 +36,7 @@ var _is_crouching : bool = false
 func _ready():
 	_speed = SPEED_DEFAULT
 	CROUCH_SHAPECAST.add_exception($".")
+	Global.player = self
 
 func _input(event):
 	if event.is_action_pressed("crouch") and is_on_floor():
@@ -106,6 +112,10 @@ func update_camara(delta):
 	_tilt_input = 0.0
 
 func _physics_process(delta):
+	
+	Global.debug.add_property("MovementSpeed", _speed, 2)
+	Global.debug.add_property("Velocity", get_real_velocity(), 3)
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -120,15 +130,16 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backwards")
+	
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
 	if direction:
-		velocity.x = direction.x * _speed
-		velocity.z = direction.z * _speed
+		velocity.x = lerp(velocity.x, direction.x * _speed, ACCELERATION)
+		velocity.z = lerp(velocity.z, direction.z * _speed, ACCELERATION)
 	else:
-		velocity.x = move_toward(velocity.x, 0, _speed)
-		velocity.z = move_toward(velocity.z, 0, _speed)
+		velocity.x = move_toward(velocity.x, 0, DECELERATION)
+		velocity.z = move_toward(velocity.z, 0, DECELERATION)
 
 	move_and_slide()
 
